@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  config:
+    import:
+      - classpath:/configs/application-prod.yml
+      - classpath:/configs/application-dev.yml
+      - classpath:/configs/application-local.yml
+  profiles:
+    # group:
+    #   logging: dev, log
+    active: local
