@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainViewController {
     @GetMapping("/")
     public String main(Model model) {
-        model.addAttribute("main", "Macho");
+        model.addAttribute("main1", "Macho");
+        model.addAttribute("main2", "상남자");
 
         return "main";
     }
