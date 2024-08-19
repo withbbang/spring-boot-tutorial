@@ -31,6 +31,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // view 컨트롤러에서 templates 하위의 페이지를 불러오기 위한 thymeleaf 의존성
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3' // mybatis
 	runtimeOnly 'mysql:mysql-connector-java:8.0.32' // mysql
+	compileOnly 'org.projectlombok:lombok:1.18.34' // lombok
+	annotationProcessor 'org.projectlombok:lombok:1.18.34' // lombok
+	
+	testCompileOnly 'org.projectlombok:lombok:1.18.34' // lombok
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.34' // lombok
 }
 
 tasks.named('test') {
