@@ -22,6 +22,7 @@ public class MainRestController {
     public String mainUpdate(@RequestBody MainRequest req) {
         try {
             mainService.mainUpdate1(req);
+            mainService.mainUpdate2(req);
         } catch (Exception e) {
             return "fail";
         }
