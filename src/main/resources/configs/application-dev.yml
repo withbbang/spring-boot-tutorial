@@ -2,6 +2,18 @@ server:
   port: 8082
 
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://avnadmin:[password]@[url]
+    username: avnadmin
+    password: password
+    hikari:
+      maximum-pool-size: 20
   config:
     activate:
       on-profile: dev
+
+mybatis:
+  config-location: classpath:/mybatis-config.xml
+  mapper-locations: classpath:/mappers/**/*.xml
+  type-aliases-package: com.tutorial.spring_boot_tutorial
