@@ -17,12 +17,8 @@ public class MainService {
     }
 
     @Transactional
-    public void mainUpdate1(MainRequest req) {
+    public void mainUpdate(MainRequest req) {
         mainMapper.mainUpdate1(req);
-    }
-
-    @Transactional
-    public void mainUpdate2(MainRequest req) {
         mainMapper.mainUpdate2(req);
 
         throw new RuntimeException("트랜잭션 테스트 에러발생");
