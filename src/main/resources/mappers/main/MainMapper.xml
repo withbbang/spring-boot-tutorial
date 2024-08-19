@@ -5,4 +5,12 @@
   <select id="mainMapper" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest" resultType="com.tutorial.spring_boot_tutorial.main.domain.res.MainResponse">
     SELECT * FROM test WHERE id = #{a};
   </select>
+
+  <update id="mainUpdate1" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest">
+    UPDATE test set name = #{b} WHERE id = 1
+  </update>
+
+  <update id="mainUpdate2" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest">
+    UPDATE test set name = #{b} WHERE id = 2
+  </update>
 </mapper>

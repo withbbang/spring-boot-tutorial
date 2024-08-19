@@ -9,4 +9,8 @@ import com.tutorial.spring_boot_tutorial.main.domain.res.MainResponse;
 @Repository
 public interface MainMapper {
     MainResponse mainMapper(MainRequest req);
+
+    void mainUpdate1(MainRequest req);
+
+    void mainUpdate2(MainRequest req);
 }

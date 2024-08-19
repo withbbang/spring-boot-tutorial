@@ -17,4 +17,15 @@ public class MainRestController {
     public MainResponse main(@RequestBody MainRequest req) {
         return mainService.mainService(req);
     }
+
+    @PostMapping(value = "update")
+    public String mainUpdate(@RequestBody MainRequest req) {
+        try {
+            mainService.mainUpdate1(req);
+        } catch (Exception e) {
+            return "fail";
+        }
+
+        return "success";
+    }
 }
