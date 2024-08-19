@@ -14,9 +14,7 @@ public class MainRestController {
     private MainService mainService;
 
     @PostMapping(value = "test")
-    public MainResponse mainTest(@RequestBody MainRequest req) {
-        MainResponse res = mainService.mainService(req);
-
-        return res;
+    public MainResponse main(@RequestBody MainRequest req) {
+        return mainService.mainService(req);
     }
 }

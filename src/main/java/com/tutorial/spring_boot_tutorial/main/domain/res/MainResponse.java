@@ -1,27 +1,27 @@
 package com.tutorial.spring_boot_tutorial.main.domain.res;
 
 public class MainResponse {
-    private String c;
-    private String d;
+    private String id;
+    private String name;
 
-    public String getC() {
-        return c;
+    public String getId() {
+        return id;
     }
 
-    public void setC(String c) {
-        this.c = c;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getD() {
-        return d;
+    public String getName() {
+        return name;
     }
 
-    public void setD(String d) {
-        this.d = d;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return "MainResponse{" + "c='" + c + '\'' + ", d='" + d + '\'' + '}';
+        return "MainResponse{" + "id='" + id + '\'' + ", name='" + name + '\'' + '}';
     }
 }
