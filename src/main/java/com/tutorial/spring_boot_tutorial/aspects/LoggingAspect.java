@@ -6,6 +6,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Arrays;
+
 @Aspect
 @Component
 @Slf4j
@@ -18,7 +21,16 @@ public class LoggingAspect {
      */
     @Before("execution(* com.tutorial.spring_boot_tutorial.**.controller.*.*(..))")
     public void logBefore(JoinPoint joinPoint) {
-        log.info("Before: " + joinPoint.getSignature().getName());
+        Object[] args = joinPoint.getArgs();
+
+        String info = "Before: " + joinPoint.getSignature().getName();
+
+        if (args.length < 1)
+            log.info(info + " args: []");
+        else {
+            List<Object> params = Arrays.asList(args);
+            log.info(info + " args: " + params);
+        }
     }
 
     /**
@@ -27,8 +39,8 @@ public class LoggingAspect {
      * @param joinPoint
      */
     @After("execution(* com.tutorial.spring_boot_tutorial.**.controller.*.*(..))")
-    public void logAfter(JoinPoint joinPoint) {
-        log.info("After: " + joinPoint.getSignature().getName());
+    public void logAfter(JoinPoint joinPoint, Object result) {
+        log.info("After: " + joinPoint.getSignature().getName() + " result: " + result);
     }
 
     /**
@@ -67,9 +79,20 @@ public class LoggingAspect {
      */
     @Around("execution(* com.tutorial.spring_boot_tutorial.**.controller.*.*(..))")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("Around before: " + joinPoint.getSignature().getName());
+        Object[] args = joinPoint.getArgs();
+
+        String info = "Around before: " + joinPoint.getSignature().getName();
+
+        if (args.length < 1)
+            log.info(info + " args: []");
+        else {
+            List<Object> params = Arrays.asList(args);
+            log.info(info + " args: " + params);
+        }
+
         Object result = joinPoint.proceed();
-        log.info("Around after: " + joinPoint.getSignature().getName());
+        log.info("Around after: " + joinPoint.getSignature().getName() + " result: " + result);
+
         return result;
     }
 
