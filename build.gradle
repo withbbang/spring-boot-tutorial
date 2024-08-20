@@ -36,6 +36,8 @@ dependencies {
 	
 	testCompileOnly 'org.projectlombok:lombok:1.18.34' // lombok
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.34' // lombok
+
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16' // log4jdbc - SQL Log
 }
 
 tasks.named('test') {

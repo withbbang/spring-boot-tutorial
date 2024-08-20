@@ -1,7 +1,5 @@
 [Automatic Restart]
-
 - Ref: https://blog.hyunsub.kim/Spring/Spring-with-Terminal/
-
 # Terminal 1
 $ ./gradlew build -continuous
 # Terminal 2
