@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbc-url: jdbc:mysql://avnadmin:[password]@[url]
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    jdbc-url: jdbc:log4jdbc:mysql://avnadmin:[password]@[url]
     username: avnadmin
     password: password
     hikari:
