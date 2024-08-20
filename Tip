@@ -14,3 +14,6 @@ $ ./gradlew bootRun
 - hourly: %d{yyyy-MM-dd-HH}-%i.log
 - minutely: %d{yyyy-MM-dd-HH-mm}-%i.log
 - secondly: %d{yyyy-MM-dd-HH-mm-ss}-%i.log
+
+[설정파일(yml, properties)에서 classpath 의미]
+- classpath: resources를 rootPath로 지정한다는 뜻
