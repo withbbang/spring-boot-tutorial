@@ -11,3 +11,9 @@ spring:
     # group:
     #   logging: dev, log
     active: local
+
+logging:
+  config: classpath:/logback-spring.xml
+  level:
+    root: info
+    hibernate: debug

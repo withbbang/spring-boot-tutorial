@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest;
 import com.tutorial.spring_boot_tutorial.main.domain.res.MainResponse;
 import com.tutorial.spring_boot_tutorial.main.service.MainService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 public class MainRestController {
     @Autowired
@@ -23,6 +25,7 @@ public class MainRestController {
         try {
             mainService.mainUpdate(req);
         } catch (Exception e) {
+            log.error(e.getMessage());
             return "fail";
         }
 

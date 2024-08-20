@@ -8,3 +8,11 @@ $ ./gradlew build -continuous
 $ ./gradlew bootRun
 
 
+[Regularly Creating Log File]
+- logback-spring.xml의 fileNamePattern 조작
+- yearly: %d{yyyy}-%i.log
+- monthly: %d{yyyy-MM}-%i.log
+- daily: %d{yyyy-MM-dd}-%i.log
+- hourly: %d{yyyy-MM-dd-HH}-%i.log
+- minutely: %d{yyyy-MM-dd-HH-mm}-%i.log
+- secondly: %d{yyyy-MM-dd-HH-mm-ss}-%i.log

@@ -1,10 +1,10 @@
 server:
-  port: 8082
+  port: 8081
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://avnadmin:[password]@[url]
+    jdbc-url: jdbc:mysql://avnadmin:[password]@[url]
     username: avnadmin
     password: password
     hikari:
@@ -17,3 +17,8 @@ mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:/mappers/**/*.xml
   type-aliases-package: com.tutorial.spring_boot_tutorial
+
+logging:
+  file:
+    path: "logs"
+    name: "spring-boot-turorial"

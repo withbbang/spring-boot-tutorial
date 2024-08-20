@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://avnadmin:[password]@[url]
+    jdbc-url: jdbc:mysql://avnadmin:[password]@[url]
     username: avnadmin
     password: password
     hikari:
@@ -17,3 +17,8 @@ mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:/mappers/**/*.xml
   type-aliases-package: com.tutorial.spring_boot_tutorial
+
+logging:
+  file:
+    path: "logs" #TODO: 환경마다 변경 필요
+    name: "spring-boot-turorial"
