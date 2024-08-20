@@ -1,9 +1,6 @@
-[Automatic Restart]
-- Ref: https://blog.hyunsub.kim/Spring/Spring-with-Terminal/
-# Terminal 1
-$ ./gradlew build -continuous
-# Terminal 2
-$ ./gradlew bootRun
+[Automatic Restart] (Ref: https://blog.hyunsub.kim/Spring/Spring-with-Terminal/)
+$ ./gradlew build -continuous   # Terminal 1
+$ ./gradlew bootRun             # Terminal 2
 
 
 [Regularly Creating Log File]
@@ -15,5 +12,12 @@ $ ./gradlew bootRun
 - minutely: %d{yyyy-MM-dd-HH-mm}-%i.log
 - secondly: %d{yyyy-MM-dd-HH-mm-ss}-%i.log
 
+
 [설정파일(yml, properties)에서 classpath 의미]
 - classpath: resources를 rootPath로 지정한다는 뜻
+
+
+[AOP 설정 가이드] (Ref: https://adjh54.tistory.com/133)
+
+
+[yml, properties의 민감 환경변수 암호화해서 git에 올리는 방법] (Ref: https://katastrophe.tistory.com/162)
