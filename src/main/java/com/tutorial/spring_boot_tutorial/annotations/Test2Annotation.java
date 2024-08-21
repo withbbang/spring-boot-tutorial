@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Test2Annotation {
-    String value() default "default";
+    String test2Annotation() default "test2Annotation";
 }

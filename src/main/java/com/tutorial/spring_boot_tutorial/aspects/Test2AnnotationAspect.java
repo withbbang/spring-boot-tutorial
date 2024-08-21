@@ -21,7 +21,9 @@ public class Test2AnnotationAspect {
         Class<?> clazz = obj.getClass();
 
         for (Field field : clazz.getDeclaredFields()) {
+            log.info("annotation1: {}", field.getAnnotations());
             if (field.isAnnotationPresent(Test2Annotation.class)) {
+                log.info("annotation2: {}", field.getAnnotations());
                 field.setAccessible(true);
                 Object value = field.get(obj);
 

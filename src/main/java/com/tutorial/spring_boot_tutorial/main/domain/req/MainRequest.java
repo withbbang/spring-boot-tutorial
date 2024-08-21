@@ -11,6 +11,6 @@ import lombok.ToString;
 public class MainRequest {
     private String id;
 
-    @TestAnnotation(value = "a")
+    @TestAnnotation(testAnnotation = "testAnnotation")
     private String name;
 }

@@ -25,9 +25,9 @@ public class LoggingAspect {
 
         String info = "Before: " + joinPoint.getSignature().getName();
 
-        if (args.length < 1)
+        if (args.length < 1) {
             log.info(info + " args: []");
-        else {
+        } else {
             List<Object> params = Arrays.asList(args);
             log.info(info + " args: " + params);
         }
@@ -83,9 +83,9 @@ public class LoggingAspect {
 
         String info = "Around before: " + joinPoint.getSignature().getName();
 
-        if (args.length < 1)
+        if (args.length < 1) {
             log.info(info + " args: []");
-        else {
+        } else {
             List<Object> params = Arrays.asList(args);
             log.info(info + " args: " + params);
         }
