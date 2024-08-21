@@ -22,3 +22,7 @@ logging:
   file:
     path: "logs" #TODO: 환경마다 변경 필요
     name: "spring-boot-turorial"
+
+key:
+  database:
+    aes-key: abcdefghijklmnopqrstuvwxyz123456

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.tutorial.spring_boot_tutorial.main.mapper.MainMapper">
   <select id="mainMapper" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest" resultType="com.tutorial.spring_boot_tutorial.main.domain.res.MainResponse">
-    SELECT * FROM test WHERE id = #{id} and name = #{name};
+    SELECT * FROM test WHERE id = #{id};
   </select>
 
   <update id="mainUpdate1" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest">

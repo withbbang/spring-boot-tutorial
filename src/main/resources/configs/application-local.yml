@@ -22,3 +22,7 @@ logging:
   file:
     path: "logs"
     name: "spring-boot-turorial"
+
+key:
+  database:
+    aes-key: abcdefghijklmnopqrstuvwxyz123456
