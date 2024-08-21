@@ -3,14 +3,14 @@
 
 <mapper namespace="com.tutorial.spring_boot_tutorial.main.mapper.MainMapper">
   <select id="mainMapper" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest" resultType="com.tutorial.spring_boot_tutorial.main.domain.res.MainResponse">
-    SELECT * FROM test WHERE id = #{a};
+    SELECT * FROM test WHERE id = #{id} and name = #{name};
   </select>
 
   <update id="mainUpdate1" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest">
-    UPDATE test set name = #{b} WHERE id = 1
+    UPDATE test set name = #{name} WHERE id = 1
   </update>
 
   <update id="mainUpdate2" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest">
-    UPDATE test set name = #{b} WHERE id = 2
+    UPDATE test set name = #{name} WHERE id = 2
   </update>
 </mapper>

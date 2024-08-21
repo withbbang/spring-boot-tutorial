@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 
 @Aspect
 @Component
-public class TestAnnotationAspect {
+public class Test2AnnotationAspect {
     @Before("execution(* com.tutorial.spring_boot_tutorial.**.mapper..*(..)) && args(obj,..)")
     public void beforeMethodExecution(Object obj) throws IllegalAccessException {
         Class<?> clazz = obj.getClass();
@@ -19,7 +19,7 @@ public class TestAnnotationAspect {
                 Object value = field.get(obj);
 
                 if (value instanceof String) {
-                    String newValue = ((String) value).toUpperCase();
+                    String newValue = (String) value + "###";
                     field.set(obj, newValue);
                 }
             }
