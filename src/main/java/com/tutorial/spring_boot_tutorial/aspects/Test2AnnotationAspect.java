@@ -16,7 +16,7 @@ public class Test2AnnotationAspect {
     @Autowired
     private DBCrypto dbCrypto;
 
-    @After("execution(* com.tutorial.spring_boot_tutorial.**.mapper..*(..)) && args(obj,..)")
+    @After("execution(* com.tutorial.spring_boot_tutorial..mapper.*.*(..)) && args(obj,..)")
     public void afterMethodExecution(Object obj) throws IllegalAccessException {
         Class<?> clazz = obj.getClass();
 

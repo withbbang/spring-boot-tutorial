@@ -16,7 +16,7 @@ public class TestAnnotationAspect {
     @Autowired
     private DBCrypto dbCrypto;
 
-    @Before("execution(* com.tutorial.spring_boot_tutorial.**.mapper..*(..)) && args(obj,..)")
+    @Before("execution(* com.tutorial.spring_boot_tutorial..mapper.*.*(..)) && args(obj,..)")
     public void beforeMethodExecution(Object obj) throws IllegalAccessException {
         Class<?> clazz = obj.getClass();
 
