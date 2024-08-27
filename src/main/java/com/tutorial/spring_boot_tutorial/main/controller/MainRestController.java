@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.tutorial.spring_boot_tutorial.common.SingleResponse;
 import com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest;
-import com.tutorial.spring_boot_tutorial.main.domain.res.MainResponse;
 import com.tutorial.spring_boot_tutorial.main.service.MainService;
+import com.tutorial.spring_boot_tutorial.main.vo.MainVo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -16,8 +17,15 @@ public class MainRestController {
     private MainService mainService;
 
     @PostMapping(value = "test")
-    public MainResponse main(@RequestBody MainRequest req) {
-        return mainService.mainService(req);
+    public SingleResponse<MainVo> main(@RequestBody MainRequest req) {
+        MainVo vo = mainService.mainService(req);
+
+        return new SingleResponse<>(vo);
+
+        // SingleResponse response = new SingleResponse();
+        // response.setData(vo);
+
+        // return response;
     }
 
     @PostMapping(value = "update")

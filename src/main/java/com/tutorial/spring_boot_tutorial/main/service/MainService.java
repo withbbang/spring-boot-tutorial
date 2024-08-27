@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest;
-import com.tutorial.spring_boot_tutorial.main.domain.res.MainResponse;
 import com.tutorial.spring_boot_tutorial.main.mapper.MainMapper;
+import com.tutorial.spring_boot_tutorial.main.vo.MainVo;
 
 @Service
 public class MainService {
     @Autowired
     MainMapper mainMapper;
 
-    public MainResponse mainService(MainRequest req) {
+    public MainVo mainService(MainRequest req) {
         return mainMapper.mainMapper(req);
     }
 

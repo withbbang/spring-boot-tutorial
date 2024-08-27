@@ -9,9 +9,9 @@ import com.tutorial.spring_boot_tutorial.utils.DBCrypto;
 import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Field;
 
-@Slf4j
 @Aspect
 @Component
+@Slf4j
 public class Test2AnnotationAspect {
     @Autowired
     private DBCrypto dbCrypto;

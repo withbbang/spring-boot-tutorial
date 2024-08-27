@@ -19,7 +19,7 @@ public class LoggingAspect {
      *
      * @param joinPoint
      */
-    @Before("execution(* com.tutorial.spring_boot_tutorial.**.controller.*.*(..))")
+    @Before("execution(* com.tutorial.spring_boot_tutorial..controller.*.*(..))")
     public void logBefore(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
 
@@ -38,7 +38,7 @@ public class LoggingAspect {
      *
      * @param joinPoint
      */
-    @After("execution(* com.tutorial.spring_boot_tutorial.**.controller.*.*(..))")
+    @After("execution(* com.tutorial.spring_boot_tutorial..controller.*.*(..))")
     public void logAfter(JoinPoint joinPoint, Object result) {
         log.info("After: " + joinPoint.getSignature().getName() + " result: " + result);
     }
@@ -49,8 +49,7 @@ public class LoggingAspect {
      * @param joinPoint
      * @param result
      */
-    @AfterReturning(
-            pointcut = "execution(* com.tutorial.spring_boot_tutorial.**.controller.*.*(..))",
+    @AfterReturning(pointcut = "execution(* com.tutorial.spring_boot_tutorial..controller.*.*(..))",
             returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
         log.info("AfterReturning: " + joinPoint.getSignature().getName() + " result: " + result);
@@ -62,8 +61,7 @@ public class LoggingAspect {
      * @param joinPoint
      * @param e
      */
-    @AfterThrowing(
-            pointcut = "execution(* com.tutorial.spring_boot_tutorial.**.controller.*.*(..))",
+    @AfterThrowing(pointcut = "execution(* com.tutorial.spring_boot_tutorial..controller.*.*(..))",
             throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         log.info("AfterThrowing: " + joinPoint.getSignature().getName() + " exception: "
@@ -77,7 +75,7 @@ public class LoggingAspect {
      * @return
      * @throws Throwable
      */
-    @Around("execution(* com.tutorial.spring_boot_tutorial.**.controller.*.*(..))")
+    @Around("execution(* com.tutorial.spring_boot_tutorial..controller.*.*(..))")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] args = joinPoint.getArgs();
 

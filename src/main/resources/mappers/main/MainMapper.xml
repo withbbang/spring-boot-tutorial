@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tutorial.spring_boot_tutorial.main.mapper.MainMapper">
-  <select id="mainMapper" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest" resultType="com.tutorial.spring_boot_tutorial.main.domain.res.MainResponse">
+  <select id="mainMapper" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest" resultType="com.tutorial.spring_boot_tutorial.main.vo.MainVo">
     SELECT * FROM test WHERE id = #{id};
   </select>
 
