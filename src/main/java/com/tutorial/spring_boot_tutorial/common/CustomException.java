@@ -3,6 +3,9 @@ package com.tutorial.spring_boot_tutorial.common;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 커스텀 Exception
+ */
 @Getter
 @Setter
 public class CustomException extends Exception {

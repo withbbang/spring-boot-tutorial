@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 단일 응답 클래스
+ */
 @Getter
 @Setter
 @ToString

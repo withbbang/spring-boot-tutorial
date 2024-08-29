@@ -7,15 +7,27 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import com.tutorial.spring_boot_tutorial.common.CodeMessage;
+import com.tutorial.spring_boot_tutorial.common.CustomException;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Database 용 AES 암복호화 클래스
+ */
 @Slf4j
 @Component
 public class DatabaseCrypto {
     @Value("${key.database.aes-key}")
     private String key;
 
-    public String encrypt(String plainText) throws Exception {
+    /**
+     * Database Field 암호화
+     * 
+     * @param plainText
+     * @return
+     * @throws CustomException
+     */
+    public String encrypt(String plainText) throws CustomException {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKey =
@@ -29,11 +41,18 @@ public class DatabaseCrypto {
             return Base64.getEncoder().encodeToString(encryptedText);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new Exception(e);
+            throw new CustomException(CodeMessage.ER0001);
         }
     }
 
-    public String decrypt(String encryptedText) throws Exception {
+    /**
+     * Database Field 복호화
+     * 
+     * @param encryptedText
+     * @return
+     * @throws CustomException
+     */
+    public String decrypt(String encryptedText) throws CustomException {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKey =
@@ -47,7 +66,7 @@ public class DatabaseCrypto {
             return new String(cipher.doFinal(decryptedByte), StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new Exception(e);
+            throw new CustomException(CodeMessage.ER0001);
         }
     }
 }

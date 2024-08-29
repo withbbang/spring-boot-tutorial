@@ -10,6 +10,9 @@ import com.tutorial.spring_boot_tutorial.utils.DatabaseCrypto;
 import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Field;
 
+/**
+ * 데이터베이스 암복호화 Aspect
+ */
 @Aspect
 @Component
 @Slf4j
@@ -17,6 +20,13 @@ public class DatabaseCryptAspect {
     @Autowired
     private DatabaseCrypto databaseCrypto;
 
+    /**
+     * Mapper 전 후로 DTO/VO 의 특정 필드를 암호화
+     * 
+     * @param joinPoint
+     * @return
+     * @throws Throwable
+     */
     @Around("execution(* com.tutorial.spring_boot_tutorial..mapper.*.*(..))")
     public Object databaseCryptoAspect(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] args = joinPoint.getArgs();
@@ -41,6 +51,12 @@ public class DatabaseCryptAspect {
         return result;
     }
 
+    /**
+     * Database 암호화
+     * 
+     * @param arg
+     * @throws Exception
+     */
     private void encryptData(Object arg) throws Exception {
         if (arg == null)
             return;
@@ -63,6 +79,12 @@ public class DatabaseCryptAspect {
         }
     }
 
+    /**
+     * Database 복호화
+     * 
+     * @param arg
+     * @throws Exception
+     */
     private void decryptData(Object arg) throws Exception {
         if (arg == null)
             return;

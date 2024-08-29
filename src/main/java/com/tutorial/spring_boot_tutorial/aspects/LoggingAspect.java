@@ -58,7 +58,7 @@ public class LoggingAspect {
     // }
 
     /**
-     * AfterThrowing: 대상 “메서드에서 예외가 발생”했을 때 Advice를 실행합니다.
+     * AfterThrowing: 대상 “메서드에서 예외가 발생”했을 때 발생하는 Advice.
      *
      * @param joinPoint
      * @param e
@@ -70,7 +70,7 @@ public class LoggingAspect {
     }
 
     /**
-     * Around : 대상 “메서드” 실행 전, 후 또는 예외 발생 시에 Advice를 실행합니다.
+     * Around: 대상 “메서드” 실행 전, 후에 발생하는 Advice.
      *
      * @param joinPoint
      * @return

@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 결과 코드 클래스
+ */
 @Getter
 @Setter
 @ToString

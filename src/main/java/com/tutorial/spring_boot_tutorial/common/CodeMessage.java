@@ -1,5 +1,8 @@
 package com.tutorial.spring_boot_tutorial.common;
 
+/**
+ * 응답 코드 및 메세지 Enum
+ */
 public enum CodeMessage {
     SUCCESS("000000", "성공"), ER0001("ER0001", "실패");
 
