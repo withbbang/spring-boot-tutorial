@@ -24,7 +24,7 @@ public class AesCrypto {
     private String sectionKey;
 
     /**
-     * Database Field 암호화
+     * 암호화
      * 
      * @param plainText
      * @return
@@ -51,7 +51,7 @@ public class AesCrypto {
     }
 
     /**
-     * Database Field 복호화
+     * 복호화
      * 
      * @param encryptedText
      * @return
