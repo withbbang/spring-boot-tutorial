@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.tutorial.spring_boot_tutorial.annotations.DatabaseCryptoFieldAnnotation;
-import com.tutorial.spring_boot_tutorial.utils.DatabaseCrypto;
+import com.tutorial.spring_boot_tutorial.utils.AesCrypto;
 import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Field;
 
@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
 @Slf4j
 public class DatabaseCryptAspect {
     @Autowired
-    private DatabaseCrypto databaseCrypto;
+    private AesCrypto databaseCrypto;
 
     /**
      * Mapper 전 후로 DTO/VO 의 특정 필드를 암호화
@@ -68,7 +68,8 @@ public class DatabaseCryptAspect {
                 String originalValue = (String) field.get(arg);
                 if (originalValue != null) {
                     try {
-                        String newValue = databaseCrypto.encrypt((String) originalValue);
+                        String newValue =
+                                databaseCrypto.encrypt((String) originalValue, "database");
                         field.set(arg, newValue);
                     } catch (Exception e) {
                         log.error("Encrypt Data Error: ", e);
@@ -96,7 +97,8 @@ public class DatabaseCryptAspect {
                 String originalValue = (String) field.get(arg);
                 if (originalValue != null) {
                     try {
-                        String newValue = databaseCrypto.decrypt((String) originalValue);
+                        String newValue =
+                                databaseCrypto.decrypt((String) originalValue, "database");
                         field.set(arg, newValue);
                     } catch (Exception e) {
                         log.error("Decrypt Data Error: ", e);

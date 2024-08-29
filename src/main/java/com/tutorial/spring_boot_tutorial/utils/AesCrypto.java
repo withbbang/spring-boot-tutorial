@@ -12,13 +12,16 @@ import com.tutorial.spring_boot_tutorial.common.CustomException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Database 용 AES 암복호화 클래스
+ * AES 암복호화 클래스
  */
 @Slf4j
 @Component
-public class DatabaseCrypto {
+public class AesCrypto {
     @Value("${key.database.aes-key}")
-    private String key;
+    private String databaseKey;
+
+    @Value("${key.section.aes-key}")
+    private String sectionKey;
 
     /**
      * Database Field 암호화
@@ -27,9 +30,11 @@ public class DatabaseCrypto {
      * @return
      * @throws CustomException
      */
-    public String encrypt(String plainText) throws CustomException {
+    public String encrypt(String plainText, String type) throws CustomException {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            String key = type.equals("database") ? databaseKey : sectionKey;
+
             SecretKeySpec secretKey =
                     new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec IV = new IvParameterSpec(key.substring(0, 16).getBytes());
@@ -52,9 +57,11 @@ public class DatabaseCrypto {
      * @return
      * @throws CustomException
      */
-    public String decrypt(String encryptedText) throws CustomException {
+    public String decrypt(String encryptedText, String type) throws CustomException {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            String key = type.equals("database") ? databaseKey : sectionKey;
+
             SecretKeySpec secretKey =
                     new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec IV = new IvParameterSpec(key.substring(0, 16).getBytes());

@@ -99,6 +99,7 @@ public class LoggingAspect {
         }
 
         Object result = joinPoint.proceed();
+
         log.info("[ " + className + "." + joinPoint.getSignature().getName() + " ] result: "
                 + result);
         log.info(

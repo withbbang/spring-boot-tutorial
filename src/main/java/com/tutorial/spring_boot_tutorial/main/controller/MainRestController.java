@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.tutorial.spring_boot_tutorial.common.Result;
-import com.tutorial.spring_boot_tutorial.common.CustomException;
 import com.tutorial.spring_boot_tutorial.common.CodeMessage;
 import com.tutorial.spring_boot_tutorial.common.SingleResponse;
 import com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest;
