@@ -63,7 +63,8 @@ public class LoggingAspect {
      * @param joinPoint
      * @param e
      */
-    @AfterThrowing(pointcut = "execution(* com.tutorial.spring_boot_tutorial..controller.*.*(..))",
+    @AfterThrowing(
+            pointcut = "execution(* com.tutorial.spring_boot_tutorial..controller.*RestController.*(..))",
             throwing = "e")
     public void loggingAfterThrowingController(JoinPoint joinPoint, Throwable e) {
         log.error("Exception: " + e.getMessage());
@@ -76,7 +77,7 @@ public class LoggingAspect {
      * @return
      * @throws Throwable
      */
-    @Around("execution(* com.tutorial.spring_boot_tutorial..controller.*.*(..))")
+    @Around("execution(* com.tutorial.spring_boot_tutorial..controller.*RestController.*(..))")
     public Object loggingAroundController(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Object[] args = joinPoint.getArgs();
@@ -87,15 +88,21 @@ public class LoggingAspect {
         String info = "[ " + className + "." + joinPoint.getSignature().getName() + "]";
 
         if (args.length < 1) {
+            log.info(
+                    "\n############################################################################## START ##############################################################################");
             log.info(info + " args: []");
         } else {
             List<Object> params = Arrays.asList(args);
+            log.info(
+                    "\n############################################################################## START ##############################################################################");
             log.info(info + " args: " + params);
         }
 
         Object result = joinPoint.proceed();
         log.info("[ " + className + "." + joinPoint.getSignature().getName() + " ] result: "
                 + result);
+        log.info(
+                "\n############################################################################### END ###############################################################################");
 
         return result;
     }
