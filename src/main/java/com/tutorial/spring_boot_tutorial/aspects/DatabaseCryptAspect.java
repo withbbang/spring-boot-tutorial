@@ -5,10 +5,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.tutorial.spring_boot_tutorial.annotations.DatabaseCryptoFieldAnnotation;
-import com.tutorial.spring_boot_tutorial.utils.AesCrypto;
+import com.tutorial.spring_boot_tutorial.utils.Crypto;
 import lombok.extern.slf4j.Slf4j;
-import java.lang.reflect.Field;
 
 /**
  * 데이터베이스 암복호화 Aspect
@@ -18,7 +16,7 @@ import java.lang.reflect.Field;
 @Slf4j
 public class DatabaseCryptAspect {
     @Autowired
-    private AesCrypto databaseCrypto;
+    private Crypto crypto;
 
     /**
      * Mapper 전 후로 DTO/VO 의 특정 필드를 암호화
@@ -33,7 +31,7 @@ public class DatabaseCryptAspect {
 
         // Mapper로 전달되는 DTO의 특정 필드를 암호화
         for (Object arg : args) {
-            encryptData(arg);
+            crypto.encryptData(arg);
         }
 
         // Mapper 호출
@@ -46,66 +44,8 @@ public class DatabaseCryptAspect {
         }
 
         // Mapper에서 반환된 VO의 특정 필드를 복호화
-        decryptData(result);
+        crypto.decryptData(result);
 
         return result;
-    }
-
-    /**
-     * Database 암호화
-     * 
-     * @param arg
-     * @throws Exception
-     */
-    private void encryptData(Object arg) throws Exception {
-        if (arg == null)
-            return;
-
-        Field[] fields = arg.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if (field.isAnnotationPresent(DatabaseCryptoFieldAnnotation.class)) {
-                field.setAccessible(true);
-                String originalValue = (String) field.get(arg);
-                if (originalValue != null) {
-                    try {
-                        String newValue =
-                                databaseCrypto.encrypt((String) originalValue, "database");
-                        field.set(arg, newValue);
-                    } catch (Exception e) {
-                        log.error("Encrypt Data Error: ", e);
-                        throw e;
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Database 복호화
-     * 
-     * @param arg
-     * @throws Exception
-     */
-    private void decryptData(Object arg) throws Exception {
-        if (arg == null)
-            return;
-
-        Field[] fields = arg.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if (field.isAnnotationPresent(DatabaseCryptoFieldAnnotation.class)) {
-                field.setAccessible(true);
-                String originalValue = (String) field.get(arg);
-                if (originalValue != null) {
-                    try {
-                        String newValue =
-                                databaseCrypto.decrypt((String) originalValue, "database");
-                        field.set(arg, newValue);
-                    } catch (Exception e) {
-                        log.error("Decrypt Data Error: ", e);
-                        throw e;
-                    }
-                }
-            }
-        }
     }
 }

@@ -7,16 +7,18 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import com.tutorial.spring_boot_tutorial.annotations.DatabaseCryptoFieldAnnotation;
 import com.tutorial.spring_boot_tutorial.common.CodeMessage;
 import com.tutorial.spring_boot_tutorial.common.CustomException;
 import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.Field;
 
 /**
- * AES 암복호화 클래스
+ * 암복호화 클래스
  */
 @Slf4j
 @Component
-public class AesCrypto {
+public class Crypto {
     @Value("${key.database.aes-key}")
     private String databaseKey;
 
@@ -24,7 +26,7 @@ public class AesCrypto {
     private String sectionKey;
 
     /**
-     * 암호화
+     * AES 암호화
      * 
      * @param plainText
      * @return
@@ -51,7 +53,7 @@ public class AesCrypto {
     }
 
     /**
-     * 복호화
+     * AES 복호화
      * 
      * @param encryptedText
      * @return
@@ -74,6 +76,62 @@ public class AesCrypto {
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new CustomException(CodeMessage.ER0001);
+        }
+    }
+
+    /**
+     * Aspect 암호화 과정
+     * 
+     * @param arg
+     * @throws Exception
+     */
+    public void encryptData(Object arg) throws Exception {
+        if (arg == null)
+            return;
+
+        Field[] fields = arg.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(DatabaseCryptoFieldAnnotation.class)) {
+                field.setAccessible(true);
+                String originalValue = (String) field.get(arg);
+                if (originalValue != null) {
+                    try {
+                        String newValue = encrypt((String) originalValue, "database");
+                        field.set(arg, newValue);
+                    } catch (Exception e) {
+                        log.error("Encrypt Data Error: ", e);
+                        throw e;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Aspect 복호화 과정
+     * 
+     * @param arg
+     * @throws Exception
+     */
+    public void decryptData(Object arg) throws Exception {
+        if (arg == null)
+            return;
+
+        Field[] fields = arg.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(DatabaseCryptoFieldAnnotation.class)) {
+                field.setAccessible(true);
+                String originalValue = (String) field.get(arg);
+                if (originalValue != null) {
+                    try {
+                        String newValue = decrypt((String) originalValue, "database");
+                        field.set(arg, newValue);
+                    } catch (Exception e) {
+                        log.error("Decrypt Data Error: ", e);
+                        throw e;
+                    }
+                }
+            }
         }
     }
 }
