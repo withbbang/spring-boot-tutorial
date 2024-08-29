@@ -21,6 +21,6 @@ public class MainService {
         mainMapper.mainUpdate1(req);
         mainMapper.mainUpdate2(req);
 
-        throw new RuntimeException("트랜잭션 테스트 에러발생");
+        // throw new RuntimeException("트랜잭션 테스트 에러발생");
     }
 }
