@@ -8,11 +8,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SingleResponse<T> {
-    public SingleResponse() {}
+    private Result result;
+    private T data;
 
-    public SingleResponse(T data) {
-        this.data = data;
+    public SingleResponse() {
+        this.result = new Result();
     }
 
-    private T data;
+    public SingleResponse(CodeMessage result) {
+        this.result = new Result(result);
+    }
 }
