@@ -23,4 +23,9 @@ public class Result {
         this.code = result.getCode();
         this.message = result.getMessage();
     }
+
+    public Result(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }
