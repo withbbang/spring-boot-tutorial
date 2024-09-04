@@ -21,3 +21,5 @@ $ ./gradlew bootRun             # Terminal 2
 
 
 [yml, properties의 민감 환경변수 암호화해서 git에 올리는 방법] (Ref: https://katastrophe.tistory.com/162)
+
+[JWT] (Ref: https://velog.io/@m1naworld/SpringBoot-Filter%ED%99%9C%EC%9A%A9-JWT-%EA%B5%AC%ED%98%84)

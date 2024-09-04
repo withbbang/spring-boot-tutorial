@@ -28,3 +28,8 @@ key:
     aes-key: 654321zyxwvutsrqponmlkjihgfedcba
   database: # database 암복호화
     aes-key: abcdefghijklmnopqrstuvwxyz123456
+
+jwt:
+  access-token-exp-time: 86400000 # 1일
+  refresh-token-exp-time: 2592000000 # 30일
+  secret-key: 6dbd7e7d120c47b0446038cba0b5149c1b48d722536d164937f3ec07f22d46f6
