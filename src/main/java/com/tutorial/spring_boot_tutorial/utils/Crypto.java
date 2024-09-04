@@ -20,10 +20,10 @@ import java.lang.reflect.Field;
 @Component
 public class Crypto {
     @Value("${key.database.aes-key}")
-    private String databaseKey;
+    private String DATABASE_KEY;
 
     @Value("${key.section.aes-key}")
-    private String sectionKey;
+    private String SECTION_KEY;
 
     /**
      * AES 암호화
@@ -35,7 +35,7 @@ public class Crypto {
     public String encrypt(String plainText, String type) throws CustomException {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            String key = type.equals("database") ? databaseKey : sectionKey;
+            String key = type.equals("database") ? DATABASE_KEY : SECTION_KEY;
 
             SecretKeySpec secretKey =
                     new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
@@ -62,7 +62,7 @@ public class Crypto {
     public String decrypt(String encryptedText, String type) throws CustomException {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            String key = type.equals("database") ? databaseKey : sectionKey;
+            String key = type.equals("database") ? DATABASE_KEY : SECTION_KEY;
 
             SecretKeySpec secretKey =
                     new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");

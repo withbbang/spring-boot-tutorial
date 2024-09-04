@@ -24,5 +24,7 @@ logging:
     name: "spring-boot-turorial"
 
 key:
-  database:
+  section: # 구간 암복호화
+    aes-key: 654321zyxwvutsrqponmlkjihgfedcba
+  database: # database 암복호화
     aes-key: abcdefghijklmnopqrstuvwxyz123456
