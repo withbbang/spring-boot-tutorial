@@ -24,8 +24,8 @@ public class Result {
         this.message = result.getMessage();
     }
 
-    public Result(String code, String message) {
-        this.code = code;
-        this.message = message;
+    public Result(CustomException ex) {
+        this.code = ex.getCode();
+        this.message = ex.getMessage();
     }
 }
