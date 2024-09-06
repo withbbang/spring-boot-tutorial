@@ -21,7 +21,6 @@ public class MainRestController {
     @Autowired
     private MainService mainService;
 
-    @PreAuthorize("hasRole('GRADE_50')")
     @PostMapping(value = "test")
     public SingleResponse<MainVo> main(@RequestBody MainRequest req) {
         MainVo vo = mainService.mainService(req);

@@ -56,10 +56,11 @@ public class SecurityConfig {
                 // 권한 규칙 작성
                 http.authorizeHttpRequests(
                                 authorize -> authorize.requestMatchers(AUTH_WHITELIST).permitAll()
-                                                // @PreAuthrization을 사용할 것이기 때문에 모든 경로에 대한 인증처리는 패스
-                                                .anyRequest().permitAll()
-                // .anyRequest().authenticated()
-                );
+                                                // PreAuthrization 사용하여 특정 컨트롤러에 인증 로직을 통과하게끔 하고
+                                                // 나머지는 모두 패스하는 방식
+                                                // .anyRequest().permitAll()
+                                                // 화이트 리스트를 제와한 모든 요청들에 인증 로직을 거치는 방식
+                                                .anyRequest().authenticated());
 
                 return http.build();
         }
