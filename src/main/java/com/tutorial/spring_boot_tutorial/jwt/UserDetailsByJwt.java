@@ -17,11 +17,10 @@ public class UserDetailsByJwt implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<String> roles = new ArrayList<>();
-        roles.add("ROLE_" + vo.getGrade());
+        List<String> grades = new ArrayList<>();
+        grades.add("GRADE_" + vo.getGrade());
 
-
-        return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return grades.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override

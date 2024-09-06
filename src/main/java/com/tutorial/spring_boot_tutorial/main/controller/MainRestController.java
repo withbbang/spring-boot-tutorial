@@ -3,6 +3,7 @@ package com.tutorial.spring_boot_tutorial.main.controller;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class MainRestController {
     @Autowired
     private MainService mainService;
 
+    @PreAuthorize("hasRole('GRADE_50')")
     @PostMapping(value = "test")
     public SingleResponse<MainVo> main(@RequestBody MainRequest req) {
         MainVo vo = mainService.mainService(req);

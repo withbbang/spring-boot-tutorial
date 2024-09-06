@@ -22,45 +22,45 @@ import lombok.AllArgsConstructor;
 @EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @AllArgsConstructor
 public class SecurityConfig {
-    private final UserDetailsServiceByJwt userDetailsServiceByJwt;
-    private final JwtTokenProvider jwtTokenProvider;
+        private final UserDetailsServiceByJwt userDetailsServiceByJwt;
+        private final JwtTokenProvider jwtTokenProvider;
 
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+        private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+        private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-    private static final String[] AUTH_WHITELIST = {"/", "/login"};
+        private static final String[] AUTH_WHITELIST = {"/", "/login"};
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // CSRF, CORS
-        http.csrf((csrf) -> csrf.disable());
-        http.cors(Customizer.withDefaults());
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                // CSRF, CORS
+                http.csrf((csrf) -> csrf.disable());
+                http.cors(Customizer.withDefaults());
 
-        // 세션 관리 상태 없음으로 구성, Spring Security가 세션 생성 or 사용 X
-        http.sessionManagement(sessionManagement -> sessionManagement
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                // 세션 관리 상태 없음으로 구성, Spring Security가 세션 생성 or 사용 X
+                http.sessionManagement(sessionManagement -> sessionManagement
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // FormLogin, BasicHttp 비활성화
-        http.formLogin((form) -> form.disable());
-        http.httpBasic(AbstractHttpConfigurer::disable);
+                // FormLogin, BasicHttp 비활성화
+                http.formLogin((form) -> form.disable());
+                http.httpBasic(AbstractHttpConfigurer::disable);
 
 
-        // JwtAuthFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
-        http.addFilterBefore(new JwtAuthFilter(userDetailsServiceByJwt, jwtTokenProvider),
-                UsernamePasswordAuthenticationFilter.class);
+                // JwtAuthFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
+                http.addFilterBefore(new JwtAuthFilter(userDetailsServiceByJwt, jwtTokenProvider),
+                                UsernamePasswordAuthenticationFilter.class);
 
-        http.exceptionHandling((exceptionHandling) -> exceptionHandling
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler));
+                http.exceptionHandling((exceptionHandling) -> exceptionHandling
+                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                                .accessDeniedHandler(jwtAccessDeniedHandler));
 
-        // 권한 규칙 작성
-        http.authorizeHttpRequests(
-                authorize -> authorize.requestMatchers(AUTH_WHITELIST).permitAll()
-                        // @PreAuthrization을 사용할 것이기 때문에 모든 경로에 대한 인증처리는 Pass
-                        .anyRequest().permitAll()
-        // .anyRequest().authenticated()
-        );
+                // 권한 규칙 작성
+                http.authorizeHttpRequests(
+                                authorize -> authorize.requestMatchers(AUTH_WHITELIST).permitAll()
+                                                // @PreAuthrization을 사용할 것이기 때문에 모든 경로에 대한 인증처리는 패스
+                                                .anyRequest().permitAll()
+                // .anyRequest().authenticated()
+                );
 
-        return http.build();
-    }
+                return http.build();
+        }
 }
