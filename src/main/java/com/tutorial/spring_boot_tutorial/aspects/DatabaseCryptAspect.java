@@ -39,7 +39,7 @@ public class DatabaseCryptAspect {
         try {
             result = joinPoint.proceed(args);
         } catch (Exception e) {
-            log.error("DatabaseCryptAspect error: ", e);
+            log.error("Error: ", e);
             throw e;
         }
 

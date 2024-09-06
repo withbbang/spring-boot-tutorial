@@ -1,5 +1,7 @@
 package com.tutorial.spring_boot_tutorial.main.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +40,24 @@ public class MainRestController {
             log.error(e.getMessage());
             response.setResult(new Result(CodeMessage.ER0001));
         }
+
+        return response;
+    }
+
+    @PostMapping(value = "login")
+    public SingleResponse<Map<String, String>> login(@RequestBody MainRequest req) {
+        SingleResponse response = new SingleResponse();
+
+        Map<String, String> accessToken = new HashMap<>();
+
+        try {
+            accessToken = mainService.login(req);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            response.setResult(new Result(CodeMessage.ER0001));
+        }
+
+        response.setData(accessToken);
 
         return response;
     }

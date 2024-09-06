@@ -15,4 +15,6 @@ public interface MainMapper {
     void mainUpdate1(MainRequest req);
 
     void mainUpdate2(MainRequest req);
+
+    MainVo getSingleTest(String name);
 }

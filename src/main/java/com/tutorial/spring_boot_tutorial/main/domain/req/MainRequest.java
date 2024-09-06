@@ -1,6 +1,5 @@
 package com.tutorial.spring_boot_tutorial.main.domain.req;
 
-import com.tutorial.spring_boot_tutorial.annotations.DatabaseCryptoFieldAnnotation;
 import com.tutorial.spring_boot_tutorial.annotations.RequiredAnnotation;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +10,8 @@ import lombok.ToString;
 @ToString
 public class MainRequest {
     @RequiredAnnotation
-    private String id;
-
-    @DatabaseCryptoFieldAnnotation
     private String name;
+
+    @RequiredAnnotation
+    private String password;
 }

@@ -13,4 +13,8 @@
   <update id="mainUpdate2" parameterType="com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest">
     UPDATE test set name = #{name} WHERE id = 2
   </update>
+
+  <select id="getSingleTest" parameterType="String" resultType="com.tutorial.spring_boot_tutorial.main.vo.MainVo">
+    SELECT * FROM test WHERE name = #{name};
+  </select>
 </mapper>
