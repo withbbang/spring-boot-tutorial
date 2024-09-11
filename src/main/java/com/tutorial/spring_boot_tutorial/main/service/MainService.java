@@ -45,12 +45,8 @@ public class MainService {
 
         MainVo newVo = modelMapper.map(vo, MainVo.class);
 
-        String accessToken = jwtTokenProvider.createAccessToken(newVo);
+        Map<String, String> token = jwtTokenProvider.createToken(newVo);
 
-        Map<String, String> map = new HashMap<>();
-
-        map.put("accessToken", accessToken);
-
-        return map;
+        return token;
     }
 }

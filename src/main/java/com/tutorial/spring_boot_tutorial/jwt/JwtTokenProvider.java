@@ -3,6 +3,8 @@ package com.tutorial.spring_boot_tutorial.jwt;
 import java.security.Key;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import com.tutorial.spring_boot_tutorial.main.vo.MainVo;
@@ -21,13 +23,15 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtTokenProvider {
     private final Key key;
     private final long ACCESS_TOKEN_EXP_TIME;
-    // private final long REFRESH_TOKEN_EXP_TIME;
+    private final long REFRESH_TOKEN_EXP_TIME;
 
     public JwtTokenProvider(@Value("${jwt.secret-key}") String secretKey,
-            @Value("${jwt.access-token-exp-time}") long accessTokenExpTime) {
+            @Value("${jwt.access-token-exp-time}") long accessTokenExpTime,
+            @Value("${jwt.refresh-token-exp-time}") long refreshTokenExpTime) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.ACCESS_TOKEN_EXP_TIME = accessTokenExpTime;
+        this.REFRESH_TOKEN_EXP_TIME = refreshTokenExpTime;
     }
 
     /**
@@ -36,8 +40,16 @@ public class JwtTokenProvider {
      * @param member
      * @return Access Token String
      */
-    public String createAccessToken(MainVo vo) {
-        return createToken(vo, ACCESS_TOKEN_EXP_TIME);
+    public Map<String, String> createToken(MainVo vo) {
+        String accessToken = createAccessToken(vo, ACCESS_TOKEN_EXP_TIME);
+        String refreshToken = createRefreshToken(vo, REFRESH_TOKEN_EXP_TIME);
+
+        Map<String, String> token = new HashMap<>();
+
+        token.put("accessToken", accessToken);
+        token.put("refreshToken", refreshToken);
+
+        return token;
     }
 
 
@@ -48,7 +60,7 @@ public class JwtTokenProvider {
      * @param expireTime
      * @return JWT String
      */
-    private String createToken(MainVo member, long expireTime) {
+    private String createAccessToken(MainVo member, long expireTime) {
         Claims claims = Jwts.claims();
         claims.put("name", member.getName());
         claims.put("grade", member.getGrade());
@@ -56,6 +68,17 @@ public class JwtTokenProvider {
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
 
+        return Jwts.builder().setClaims(claims).setIssuedAt(Date.from(now.toInstant()))
+                .setExpiration(Date.from(tokenValidity.toInstant()))
+                .signWith(key, SignatureAlgorithm.HS256).compact();
+    }
+
+    private String createRefreshToken(MainVo member, long expireTime) {
+        Claims claims = Jwts.claims();
+        claims.put("name", member.getName());
+
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
 
         return Jwts.builder().setClaims(claims).setIssuedAt(Date.from(now.toInstant()))
                 .setExpiration(Date.from(tokenValidity.toInstant()))
