@@ -35,10 +35,10 @@ public class JwtTokenProvider {
     }
 
     /**
-     * Access Token 생성
+     * Access, Refresh Token 생성
      * 
-     * @param member
-     * @return Access Token String
+     * @param vo
+     * @return Map<String, String>
      */
     public Map<String, String> createToken(MainVo vo) {
         String accessToken = createAccessToken(vo, ACCESS_TOKEN_EXP_TIME);
@@ -54,11 +54,11 @@ public class JwtTokenProvider {
 
 
     /**
-     * JWT 생성
+     * Access Token 생성
      * 
      * @param member
      * @param expireTime
-     * @return JWT String
+     * @return String
      */
     private String createAccessToken(MainVo member, long expireTime) {
         Claims claims = Jwts.claims();
@@ -73,6 +73,13 @@ public class JwtTokenProvider {
                 .signWith(key, SignatureAlgorithm.HS256).compact();
     }
 
+    /**
+     * Refresh Token 생성
+     * 
+     * @param member
+     * @param expireTime
+     * @return String
+     */
     private String createRefreshToken(MainVo member, long expireTime) {
         Claims claims = Jwts.claims();
         claims.put("name", member.getName());

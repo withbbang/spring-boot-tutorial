@@ -16,30 +16,28 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @Slf4j(topic = "UNAUTHORIZATION_EXCEPTION_HANDLER")
 @AllArgsConstructor
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
-    private final ObjectMapper objectMapper;
+        private final ObjectMapper objectMapper;
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException authException) throws IOException, ServletException {
-        log.info(
-                "\n############################################################################## START ##############################################################################");
-        log.error("Not Authenticated Request", authException);
-        log.info(
-                "\n############################################################################### END ###############################################################################");
+        @Override
+        public void commence(HttpServletRequest request, HttpServletResponse response,
+                        AuthenticationException authException)
+                        throws IOException, ServletException {
+                log.info("\n############################################################################## START ##############################################################################");
+                log.error("Not Authenticated Request", authException);
+                log.info("\n############################################################################### END ###############################################################################");
 
-        SingleResponse errorResponse = new SingleResponse();
-        errorResponse.setResult(new Result(CodeMessage.ER0001));
+                SingleResponse errorResponse = new SingleResponse();
+                errorResponse.setResult(new Result(CodeMessage.ER0001));
 
-        String responseBody = objectMapper.writeValueAsString(errorResponse);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(responseBody);
-    }
+                String responseBody = objectMapper.writeValueAsString(errorResponse);
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(responseBody);
+        }
 }
