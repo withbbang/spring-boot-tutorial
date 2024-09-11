@@ -6,6 +6,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tutorial.spring_boot_tutorial.common.CodeMessage;
+import com.tutorial.spring_boot_tutorial.common.Result;
+import com.tutorial.spring_boot_tutorial.common.SingleResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,12 +27,16 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
+        log.info(
+                "\n############################################################################## START ##############################################################################");
         log.error("Not Authenticated Request", authException);
+        log.info(
+                "\n############################################################################### END ###############################################################################");
 
-        JwtErrorResponse jwtErrorResponse = new JwtErrorResponse(HttpStatus.UNAUTHORIZED.value(),
-                authException.getMessage(), LocalDateTime.now());
+        SingleResponse errorResponse = new SingleResponse();
+        errorResponse.setResult(new Result(CodeMessage.ER0001));
 
-        String responseBody = objectMapper.writeValueAsString(jwtErrorResponse);
+        String responseBody = objectMapper.writeValueAsString(errorResponse);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setCharacterEncoding("UTF-8");
