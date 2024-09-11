@@ -13,6 +13,8 @@ import com.tutorial.spring_boot_tutorial.common.SingleResponse;
 import com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest;
 import com.tutorial.spring_boot_tutorial.main.service.MainService;
 import com.tutorial.spring_boot_tutorial.main.vo.MainVo;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -46,20 +48,30 @@ public class MainRestController {
     }
 
     @PostMapping(value = "login")
-    public SingleResponse<Map<String, String>> login(@RequestBody MainRequest req) {
-        SingleResponse response = new SingleResponse();
+    public SingleResponse<Map<String, String>> login(@RequestBody MainRequest req,
+            HttpServletResponse response) {
+        SingleResponse responseBody = new SingleResponse();
 
-        Map<String, String> accessToken = new HashMap<>();
+        Map<String, String> token = new HashMap<>();
 
         try {
-            accessToken = mainService.login(req);
+            token = mainService.login(req);
         } catch (Exception e) {
             log.error(e.getMessage());
-            response.setResult(new Result(CodeMessage.ER0001));
+            responseBody.setResult(new Result(CodeMessage.ER0001));
         }
 
-        response.setData(accessToken);
+        Cookie accessToken = new Cookie("accessToken", token.get("accessToken"));
+        Cookie refreshToken = new Cookie("refreshToken", token.get("refreshToken"));
 
-        return response;
+        accessToken.setHttpOnly(true);
+        accessToken.setSecure(true);
+        refreshToken.setHttpOnly(true);
+        refreshToken.setSecure(true);
+
+        response.addCookie(accessToken);
+        response.addCookie(refreshToken);
+
+        return responseBody;
     }
 }
