@@ -15,6 +15,7 @@ import com.tutorial.spring_boot_tutorial.jwt.JwtAuthFilter;
 import com.tutorial.spring_boot_tutorial.jwt.JwtAuthenticationEntryPoint;
 import com.tutorial.spring_boot_tutorial.jwt.JwtTokenProvider;
 import com.tutorial.spring_boot_tutorial.jwt.UserDetailsServiceByJwt;
+import com.tutorial.spring_boot_tutorial.utils.CookieUtil;
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -24,6 +25,7 @@ import lombok.AllArgsConstructor;
 public class SecurityConfig {
         private final UserDetailsServiceByJwt userDetailsServiceByJwt;
         private final JwtTokenProvider jwtTokenProvider;
+        private final CookieUtil cookieUtil;
 
         private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
         private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
@@ -46,7 +48,9 @@ public class SecurityConfig {
 
 
                 // JwtAuthFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
-                http.addFilterBefore(new JwtAuthFilter(userDetailsServiceByJwt, jwtTokenProvider),
+                http.addFilterBefore(
+                                new JwtAuthFilter(userDetailsServiceByJwt, jwtTokenProvider,
+                                                cookieUtil),
                                 UsernamePasswordAuthenticationFilter.class);
 
                 http.exceptionHandling((exceptionHandling) -> exceptionHandling

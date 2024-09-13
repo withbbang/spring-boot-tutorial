@@ -13,6 +13,7 @@ import com.tutorial.spring_boot_tutorial.common.SingleResponse;
 import com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest;
 import com.tutorial.spring_boot_tutorial.main.service.MainService;
 import com.tutorial.spring_boot_tutorial.main.vo.MainVo;
+import com.tutorial.spring_boot_tutorial.utils.CookieUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MainRestController {
     @Autowired
     private MainService mainService;
+
+    @Autowired
+    private CookieUtil cookieUtil;
 
     @PostMapping(value = "test")
     public SingleResponse<MainVo> main(@RequestBody MainRequest req) {
@@ -61,16 +65,8 @@ public class MainRestController {
             responseBody.setResult(new Result(CodeMessage.ER0001));
         }
 
-        Cookie accessToken = new Cookie("accessToken", token.get("accessToken"));
-        Cookie refreshToken = new Cookie("refreshToken", token.get("refreshToken"));
-
-        accessToken.setHttpOnly(true);
-        accessToken.setSecure(true);
-        refreshToken.setHttpOnly(true);
-        refreshToken.setSecure(true);
-
-        response.addCookie(accessToken);
-        response.addCookie(refreshToken);
+        response.addCookie(cookieUtil.setCookie("accessToken", token.get("accessToken")));
+        response.addCookie(cookieUtil.setCookie("refreshToken", token.get("refreshToken")));
 
         return responseBody;
     }

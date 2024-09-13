@@ -99,8 +99,8 @@ public class JwtTokenProvider {
      * @param token
      * @return User ID
      */
-    public Long getUserId(String token) {
-        return parseClaims(token).get("memberId", Long.class);
+    public String getUserId(String token) {
+        return parseClaims(token).get("name", String.class);
     }
 
 
