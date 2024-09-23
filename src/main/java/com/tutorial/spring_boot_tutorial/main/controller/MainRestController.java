@@ -14,7 +14,6 @@ import com.tutorial.spring_boot_tutorial.main.domain.req.MainRequest;
 import com.tutorial.spring_boot_tutorial.main.service.MainService;
 import com.tutorial.spring_boot_tutorial.main.vo.MainVo;
 import com.tutorial.spring_boot_tutorial.utils.CookieUtil;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.tutorial.spring_boot_tutorial.common.Constants;
 import com.tutorial.spring_boot_tutorial.jwt.JwtAccessDeniedHandler;
 import com.tutorial.spring_boot_tutorial.jwt.JwtAuthFilter;
 import com.tutorial.spring_boot_tutorial.jwt.JwtAuthenticationEntryPoint;
@@ -29,8 +30,6 @@ public class SecurityConfig {
 
         private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
         private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
-        private static final String[] AUTH_WHITELIST = {"/", "/login"};
 
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -58,13 +57,13 @@ public class SecurityConfig {
                                 .accessDeniedHandler(jwtAccessDeniedHandler));
 
                 // 권한 규칙 작성
-                http.authorizeHttpRequests(
-                                authorize -> authorize.requestMatchers(AUTH_WHITELIST).permitAll()
-                                                // PreAuthrization 사용하여 특정 컨트롤러에 인증 로직을 통과하게끔 하고
-                                                // 나머지는 모두 패스하는 방식
-                                                // .anyRequest().permitAll()
-                                                // 화이트 리스트를 제와한 모든 요청들에 인증 로직을 거치는 방식
-                                                .anyRequest().authenticated());
+                http.authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers(Constants.AUTH_WHITELIST).permitAll()
+                                // PreAuthrization 사용하여 특정 컨트롤러에 인증 로직을 통과하게끔 하고
+                                // 나머지는 모두 패스하는 방식
+                                // .anyRequest().permitAll()
+                                // 화이트 리스트를 제와한 모든 요청들에 인증 로직을 거치는 방식
+                                .anyRequest().authenticated());
 
                 return http.build();
         }

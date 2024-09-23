@@ -5,6 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
+import com.tutorial.spring_boot_tutorial.common.Constants;
 import com.tutorial.spring_boot_tutorial.utils.CookieUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,8 +22,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtTokenProvider jwtTokenProvider;
     private final CookieUtil cookieUtil;
 
-    private static final String[] AUTH_WHITELIST = {"/", "/login"};
-
     /**
      * JWT 토큰 검증 필터 수행
      */
@@ -33,7 +32,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
 
         // Skip filter for whitelisted URIs
-        for (String uri : AUTH_WHITELIST) {
+        for (String uri : Constants.AUTH_WHITELIST) {
             if (requestURI.equals(uri)) {
                 filterChain.doFilter(request, response);
                 return;
