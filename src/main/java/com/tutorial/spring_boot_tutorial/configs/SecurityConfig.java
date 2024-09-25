@@ -45,7 +45,6 @@ public class SecurityConfig {
                 http.formLogin((form) -> form.disable());
                 http.httpBasic(AbstractHttpConfigurer::disable);
 
-
                 // JwtAuthFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
                 http.addFilterBefore(
                                 new JwtAuthFilter(userDetailsServiceByJwt, jwtTokenProvider,
